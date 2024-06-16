@@ -4,10 +4,16 @@ import { Footer } from "../_components/Footer";
 import { Header } from "../_components/Header";
 import { Nav } from "./_components/Nav";
 import styles from "./layout.module.css";
+import exp from "constants";
+import {Metadata} from "next";
 
 type Props = {
   children: React.ReactNode;
 };
+
+export const metadata:Metadata = {
+  description: '/Photos SegmentのLayoutから設定'
+}
 
 // 動的要素が入り混り構成される(site)配下で全適用されるレイアウト
 export default function Layout({ children }: Props) {

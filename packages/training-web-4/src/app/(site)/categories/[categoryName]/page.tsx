@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Category, Photo } from "@/type";
 import { getPage } from "@/utils";
 import styles from "./page.module.css";
-import type { Metadata } from "next";
+import type {Metadata, ResolvedMetadata} from "next";
 
 async function getCategory(categoryName: string) {
   const data: { category: Category } = await fetch(
@@ -34,10 +34,11 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props, parent: ResolvedMetadata): Promise<Metadata> {
   const category = await getCategory(params.categoryName);
+  const {title} = await parent
   return {
-    title: `カテゴリー「${category.label}」の写真一覧`,
+    title: `カテゴリー「${category.label}」の写真一覧 | ${title?.absolute}`,
   };
 }
 export default async function Page({ params, searchParams }: Props) {
